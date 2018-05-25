@@ -1,0 +1,101 @@
+IMPORTS {
+	import re.structure.*;
+}
+GLOBAL {
+	VARIABLES {
+		RE re1 = new Seq(new Star(new Not(new Var("ADMIN_initialise"))),new Var("USER_login"));
+		RE re2 = new Seq(new Seq(new Seq(new Star(new Any()),new Var("makeDisabled")),new Star(new Not(new Var("makeActive")))),new Var("withdrawFrom"));
+		RE re3 = new Seq(new Seq(new Seq(new Star(new Any()),new Var("greylist")),new Seq(new Seq(new Seq(new Seq(new Or(new Seq(new Seq(new Or(new Star(new Not(new Var("depositTo"))),new Star(new Not(new Var("depositTo")))),new Var("depositTo")),new Star(new Not(new Var("depositTo")))),new Star(new Not(new Var("depositTo")))),new Var("depositTo")),new Star(new Not(new Var("depositTo")))),new Var("depositTo")),new Star(new Not(new Var("depositTo"))))),new Var("whitelist"));
+		RE re4 = new Seq(new Seq(new Seq(new Star(new Not(new Var("openSession"))),new Star(new Seq(new Seq(new Var("openSession"),new Star(new Not(new Var("closeSession")))),new Var("closeSession")))),new Star(new Not(new Var("openSession")))),new Var("log"));
+	
+	}
+	EVENTS {
+		USER_login() = {*.USER_login()}
+		ADMIN_initialise() = {*.ADMIN_initialise()}
+		withdrawFrom() = {*.withdrawFrom()}
+		makeDisabled() = {*.makeDisabled()}
+		makeActive() = {*.makeActive()}
+		depositTo() = {*.depositTo()}
+		greylist() = {*.greylist()}
+		whitelist() = {*.whitelist()}
+		log() = {*.log()}
+		openSession() = {*.openSession()}
+		closeSession() = {*.closeSession()}
+	}
+	PROPERTY property1 {
+		STATES {
+			BAD {
+				bad
+			}
+			STARTING {
+				start {System.out.println(re1);} 
+			}
+		}
+		TRANSITIONS {
+			start -> bad [USER_login() \ re1.residual("USER_login").simplify().hasEmpty()] 
+			start -> start [USER_login() \\ re1 = re1.residual("USER_login").simplify();]
+			start -> bad [ADMIN_initialise() \ re1.residual("ADMIN_initialise").simplify().hasEmpty()]
+			start -> start [ADMIN_initialise() \\ re1 = re1.residual("ADMIN_initialise").simplify();]
+		}
+	}
+	
+	PROPERTY property2 {
+		STATES {
+			BAD {
+				bad
+			}
+			STARTING {
+				start {System.out.println(re2);} 
+			}
+		}
+		TRANSITIONS {
+			start -> bad [withdrawFrom() \ re2.residual("withdrawFrom").simplify().hasEmpty()]
+			start -> start [withdrawFrom() \\ re2 = re2.residual("withdrawFrom").simplify();]
+			start -> bad [makeDisabled() \ re2.residual("makeDisabled").simplify().hasEmpty()]
+			start -> start [makeDisabled() \\ re2 = re2.residual("makeDisabled").simplify();]
+			start -> bad [makeActive() \ re2.residual("makeActive").simplify().hasEmpty()]
+			start -> start [makeActive() \\ re2 = re2.residual("makeActive").simplify();]
+		}
+	} 
+	
+	PROPERTY property3 {
+		STATES {
+			BAD {
+				bad
+			}
+			STARTING {
+				start {System.out.println(re3);} 
+			}
+		}
+		TRANSITIONS {
+			start -> bad [depositTo() \ re3.residual("depositTo").simplify().hasEmpty()]
+			start -> start [depositTo() \\ re3 = re3.residual("depositTo").simplify();]
+			start -> bad [greylist() \ re3.residual("greylist").simplify().hasEmpty()]
+			start -> start [greylist() \\ re3 = re3.residual("greylist").simplify();]
+			start -> bad [whitelist() \ re3.residual("whitelist").simplify().hasEmpty()]
+			start -> start [whitelist() \\ re3 = re3.residual("whitelist").simplify();]
+		}
+	}
+	
+	PROPERTY property4 {
+		STATES {
+			BAD {
+				bad
+			}
+			STARTING {
+				start {System.out.println(re4);} 
+			}
+		}
+		TRANSITIONS {
+			start -> bad [log() \ re4.residual("log").simplify().hasEmpty()]
+			start -> start [log() \\ re4 = re4.residual("log").simplify();]
+			start -> bad [openSession() \ re4.residual("openSession").simplify().hasEmpty()]
+			start -> start [openSession() \\ re4 = re4.residual("openSession").simplify();]
+			start -> bad [closeSession() \ re4.residual("closeSession").simplify().hasEmpty()]
+			start -> start [closeSession() \\ re4 = re4.residual("closeSession").simplify();]
+		}
+	}
+	
+
+}
+

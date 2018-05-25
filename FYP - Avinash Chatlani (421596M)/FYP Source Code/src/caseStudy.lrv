@@ -1,0 +1,31 @@
+GLOBAL {
+	VARIABLES {
+	}
+	EVENTS {
+		USER_login() = {*.USER_login()}
+		ADMIN_initialise() = {*.ADMIN_initialise()}
+	}
+	PROPERTY caseStudyProperty {
+		STATES {
+			BAD {
+				F_12131415161819
+			}
+			NORMAL {
+				N_21
+			}
+			STARTING {
+				S_11121315171920
+			}
+		}
+		TRANSITIONS {
+			S_11121315171920 -> F_12131415161819 [USER_login()]
+			F_12131415161819 -> F_12131415161819 [USER_login()]
+			N_21 -> N_21 [USER_login()]
+			S_11121315171920 -> N_21 [ADMIN_initialise()]
+			F_12131415161819 -> N_21 [ADMIN_initialise()]
+			N_21 -> N_21 [ADMIN_initialise()]
+		}
+	}
+
+} 
+

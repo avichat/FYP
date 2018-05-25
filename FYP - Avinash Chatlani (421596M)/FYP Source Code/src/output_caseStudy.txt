@@ -1,0 +1,4 @@
+[caseStudyProperty]AUTOMATON::> caseStudyProperty() STATE::>S_11121315171920
+[caseStudyProperty]MOVED ON METHODCALL: void transactionsystem.Interface.ADMIN_initialise() TO STATE::> N_21
+[caseStudyProperty]AUTOMATON::> caseStudyProperty() STATE::>N_21
+[caseStudyProperty]MOVED ON METHODCALL: Integer transactionsystem.Interface.USER_login(Integer) TO STATE::> N_21

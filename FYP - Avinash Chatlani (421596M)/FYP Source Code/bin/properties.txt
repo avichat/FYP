@@ -1,0 +1,87 @@
+VERIFICATIONCODE
+
+package transactionsystem;
+
+import java.util.Set;
+import java.util.HashSet;
+
+
+public class Verification {
+
+static Set<String> msg;
+
+static public void initialiseVerification()
+{
+	System.out.println("\n\n");
+	msg = new HashSet<String>();
+	Properties.initialise();
+}
+	
+	static public void fail(String s) {
+		
+		if (msg.add(s))
+			System.out.println("ERROR: "+s);
+	}
+	
+}
+
+PRELUDE
+
+package transactionsystem;
+
+import re.structure.*;
+import java.util.HashMap;
+
+
+REGULAREXPRESSIONS
+
+
+// P2
+// The transaction system must be initialised before any user logs in.
+
+property not matching{  
+(!ADMIN_initialise)*; USER_login
+}
+
+
+// P5
+// Once a user is disabled, he or she may not withdraw from an account until 
+// being made activate again.
+
+//property not matching {
+//(?)* ; makeDisabled ; (!makeActive)* ; withdrawFrom
+//}
+
+
+// P6 
+// Once greylisted, a user must perform at least three incoming transfers 
+// before being whitelisted.
+
+//property not matching{
+//(?)* ; greylist; ((!depositTo)* + (!depositTo)*;depositTo;(!depositTo)* + (!depositTo)*;depositTo;(!depositTo)*;depositTo;(!depositTo)*) ; whitelist
+//}
+
+
+// P10
+// Logging can only be made to an active session (i.e. between a login and a logout).
+//property not matching{
+//(!openSession)*;(openSession;(!closeSession)*;closeSession)*;(!openSession)*;log
+//}
+
+///*This file is part of ARVISummerSchoolCode.
+
+//Copyright (C) 2016  Christian Colombo
+//Modified by Avinash Chatlani 2018
+//ARVISummerSchoolCode is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
+
+//ARVISummerSchoolCode is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+
+//You should have received a copy of the GNU General Public License
+//along with files from ARVISummerSchoolCode.  If not, see <http://www.gnu.org/licenses/>.
+//*/

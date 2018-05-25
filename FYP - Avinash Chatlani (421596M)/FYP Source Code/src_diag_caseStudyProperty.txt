@@ -1,0 +1,13 @@
+digraph _logic_caseStudyProperty {
+rankdir=LR;
+node [shape = circle]; N_21 S_11121315171920;
+node [shape = octagon]; F_12131415161819;
+node [shape = point]; _s_s;
+_s_s -> S_11121315171920;
+S_11121315171920 -> F_12131415161819 [ label = "(1) USER_login"];
+S_11121315171920 -> N_21 [ label = "(2) ADMIN_initialise"];
+N_21 -> N_21 [ label = "(1) USER_login"];
+N_21 -> N_21 [ label = "(2) ADMIN_initialise"];
+F_12131415161819 -> F_12131415161819 [ label = "(1) USER_login"];
+F_12131415161819 -> N_21 [ label = "(2) ADMIN_initialise"];
+}
